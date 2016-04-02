@@ -299,6 +299,7 @@ public class Game {
 	}
 	
 	public static int game_state() {
+		int result = Constants.NEUTRAL_STATE;
 		int row, column, left, right, up, down, possibleAttackers = 0, alivePredators=0;
 		
 		if(!prada.isAlive()) {
@@ -347,12 +348,13 @@ public class Game {
 			left 	= traps[i].getColumn() - traps[i].getRaza_influenta();
 			
 			if(column >= left && column <= right && row >= up && row <= down) { 
+				result = Constants.PREDATORS_WIN;
 				System.out.println("Prada a calcat in capcana!");
-				return Constants.PREDATORS_WIN;
+				break;
 			}
 		}
 			
-		return Constants.NEUTRAL_STATE;
+		return result;
 	}
 
 	public static void main(String[] args) throws FileNotFoundException {

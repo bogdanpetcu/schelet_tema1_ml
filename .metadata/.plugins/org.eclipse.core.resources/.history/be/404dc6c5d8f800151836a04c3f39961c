@@ -2,19 +2,11 @@ package tema_1_ml;
 
 public class Capcana {
 	
-	private int 	raza_influenta;
-	private int		row;
-	private int		column;
-	private boolean active;
+	private int raza_influenta;
+	private int	row;
+	private int	column;
+	private boolean isActive;
 	
-	public boolean isActive() {
-		return active;
-	}
-
-	public void setActive(boolean active) {
-		this.active = active;
-	}
-
 	public int getRow() {
 		return this.row;
 	}

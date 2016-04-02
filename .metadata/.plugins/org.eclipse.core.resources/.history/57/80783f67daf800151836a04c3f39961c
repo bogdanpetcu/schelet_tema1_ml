@@ -299,7 +299,8 @@ public class Game {
 	}
 	
 	public static int game_state() {
-		int row, column, left, right, up, down, possibleAttackers = 0, alivePredators=0;
+		int result = Constants.PREDATORS_LOSE;
+		int row, column, left, right, up, down, possibleAttackers = 0;
 		
 		if(!prada.isAlive()) {
 			return Constants.PREDATORS_WIN;
@@ -307,14 +308,13 @@ public class Game {
 		
 		for (int i=0; i < predator_count; i++) {
 			if(predators[i].isAlive()) {
-				alivePredators++;
+				result = Constants.NEUTRAL_STATE;
+				break;
 			}
 		}
 		
-		if (alivePredators < 2) {
-			System.out.println("A mai ramas un singur pradator. Pradatorii au pierdut!");
-			return Constants.PREDATORS_LOSE;
-		}
+		if(result == Constants.PREDATORS_LOSE)
+			return result;
 		
 		row 	= prada.getRow();
 		column 	= prada.getColumn();
@@ -332,27 +332,33 @@ public class Game {
 				possibleAttackers++;
 			
 			if(possibleAttackers > 1) {
+				result = Constants.PREDATORS_WIN;
 				System.out.println("Prada a fost incoltita!");
-				return Constants.PREDATORS_WIN;
+				break;
 			}
 		}
 		
-		for (int i=0; i < trap_count; i++) {
-			if(!traps[i].isActive())
-				continue;
-			
-			up 		= traps[i].getRow()    - traps[i].getRaza_influenta();
-			down 	= traps[i].getRow()    + traps[i].getRaza_influenta();
-			right 	= traps[i].getColumn() + traps[i].getRaza_influenta();
-			left 	= traps[i].getColumn() - traps[i].getRaza_influenta();
-			
-			if(column >= left && column <= right && row >= up && row <= down) { 
-				System.out.println("Prada a calcat in capcana!");
-				return Constants.PREDATORS_WIN;
+		if (result == Constants.PREDATORS_WIN) {
+				return result;
+		} else {
+			for (int i=0; i < trap_count; i++) {
+				if(!traps[i].isActive())
+					continue;
+				
+				up 		= traps[i].getRow()    - traps[i].getRaza_influenta();
+				down 	= traps[i].getRow()    + traps[i].getRaza_influenta();
+				right 	= traps[i].getColumn() + traps[i].getRaza_influenta();
+				left 	= traps[i].getColumn() - traps[i].getRaza_influenta();
+				
+				if(column >= left && column <= right && row >= up && row <= down) { 
+					result = Constants.PREDATORS_WIN;
+					System.out.println("Prada a calcat in capcana!");
+					break;
+				}
 			}
 		}
 			
-		return Constants.NEUTRAL_STATE;
+		return result;
 	}
 
 	public static void main(String[] args) throws FileNotFoundException {
