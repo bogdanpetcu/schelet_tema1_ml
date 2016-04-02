@@ -139,11 +139,11 @@ public class Game {
 			Random x = new Random();
 			boolean cont = true;
 			
-			row = predators[i].getRow();
-			column = predators[i].getColumn();
-			
 			while(cont) {
 				int movement = x.nextInt(5) + 4;
+				
+				row = predators[i].getRow();
+				column = predators[i].getColumn();
 				
 				switch(movement) {
 				case Constants.STAY:
