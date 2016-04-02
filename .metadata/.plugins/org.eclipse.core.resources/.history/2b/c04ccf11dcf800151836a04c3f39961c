@@ -74,47 +74,30 @@ public class Game {
 		
 		board[prada.getRow()][prada.getColumn()]=Constants.EMPTY_CELL_TYPE;
 		
-		//Verificare daca prada intra in raza de actiune a mai mult de un pradator
-		ArrayList<Integer> attackers = new ArrayList<Integer>();
+		//Prada ataca un pradator
+		up 		= prada.getRow()    - prada.getRaza_coliziune();
+		down 	= prada.getRow()    + prada.getRaza_coliziune();
+		right 	= prada.getColumn() + prada.getRaza_coliziune();
+		left 	= prada.getColumn() - prada.getRaza_coliziune();
+		
+		//ArrayList<Integer> victims = new ArrayList<Integer>();
 		
 		for (int i=0; i < predator_count; i++) {
 			if(!predators[i].isAlive())
 				continue;
 			
-			up 		= predators[i].getRow()    - predators[i].getRaza_coliziune();
-			down 	= predators[i].getRow()    + predators[i].getRaza_coliziune();
-			right 	= predators[i].getColumn() + predators[i].getRaza_coliziune();
-			left 	= predators[i].getColumn() - predators[i].getRaza_coliziune();
+			pRow = predators[i].getRow();
+			pColumn = predators[i].getColumn();
 			
-			if(column >= left && column <= right && row >= up && row <= down) {
-				attackers.add(i);
+			if(pColumn >= left && pColumn <= right && pRow >= up && pRow <= down) {
+				victims.add(i);
 			}
 		}
 		
-		/* Daca prada nu a intrat in raza de actiune a mai mult de un pradator
-		 * verificam daca prin mutare a eliminat din pradatori
-		 */
-		if(attackers.size() < 2) {
-			up 		= row    - prada.getRaza_coliziune();
-			down 	= row    + prada.getRaza_coliziune();
-			right 	= column + prada.getRaza_coliziune();
-			left 	= column - prada.getRaza_coliziune();
-			
-			for (int i=0; i < predator_count; i++) {
-				if(!predators[i].isAlive())
-					continue;
-				
-				pRow = predators[i].getRow();
-				pColumn = predators[i].getColumn();
-				
-				if(pColumn >= left && pColumn <= right && pRow >= up && pRow <= down) {
-					predators[i].setAlive(false);
-					board[predators[i].getRow()][predators[i].getColumn()] = Constants.EMPTY_CELL_TYPE;
-					System.out.println("Prada a atacat pradatorul " + i);
-				}
-			}
-			
-		} else {
+		if(victims.size() == 1) {
+			predators[victims.get(0)].setAlive(false);
+			System.out.println("Prada a atacat pradatorul " + victims.get(0));
+		} else if (victims.size() > 1) {
 			System.out.println("Prada a intrat in raza de actiune a cel putin 2 pradatori. Prada moare.");
 			prada.setAlive(false);
 			prada.setRow(row);

@@ -97,8 +97,8 @@ public class Game {
 		if(attackers.size() < 2) {
 			up 		= row    - prada.getRaza_coliziune();
 			down 	= row    + prada.getRaza_coliziune();
-			right 	= column + prada.getRaza_coliziune();
-			left 	= column - prada.getRaza_coliziune();
+			right 	= prada.getColumn() + prada.getRaza_coliziune();
+			left 	= prada.getColumn() - prada.getRaza_coliziune();
 			
 			for (int i=0; i < predator_count; i++) {
 				if(!predators[i].isAlive())
@@ -109,18 +109,22 @@ public class Game {
 				
 				if(pColumn >= left && pColumn <= right && pRow >= up && pRow <= down) {
 					predators[i].setAlive(false);
-					board[predators[i].getRow()][predators[i].getColumn()] = Constants.EMPTY_CELL_TYPE;
 					System.out.println("Prada a atacat pradatorul " + i);
 				}
 			}
 			
-		} else {
-			System.out.println("Prada a intrat in raza de actiune a cel putin 2 pradatori. Prada moare.");
-			prada.setAlive(false);
-			prada.setRow(row);
-			prada.setColumn(column);
-			return;
 		}
+		
+		
+//			predators[victims.get(0)].setAlive(false);
+//			System.out.println("Prada a atacat pradatorul " + victims.get(0));
+//		} else if (victims.size() > 1) {
+//			System.out.println("Prada a intrat in raza de actiune a cel putin 2 pradatori. Prada moare.");
+//			prada.setAlive(false);
+//			prada.setRow(row);
+//			prada.setColumn(column);
+//			return;
+//		}
 		
 		board[row][column] = Constants.PRADA_TYPE;
 		prada.setRow(row);

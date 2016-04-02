@@ -109,7 +109,6 @@ public class Game {
 				
 				if(pColumn >= left && pColumn <= right && pRow >= up && pRow <= down) {
 					predators[i].setAlive(false);
-					board[predators[i].getRow()][predators[i].getColumn()] = Constants.EMPTY_CELL_TYPE;
 					System.out.println("Prada a atacat pradatorul " + i);
 				}
 			}
