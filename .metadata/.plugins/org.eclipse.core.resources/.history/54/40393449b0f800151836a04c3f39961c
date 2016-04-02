@@ -1,0 +1,35 @@
+package tema_1_ml;
+
+public class Capcana {
+	
+	private int raza_influenta;
+	private int	row;
+	private int	column;
+	
+	public int getPositionX() {
+		return positionX;
+	}
+
+	public void setPositionX(int positionX) {
+		this.positionX = positionX;
+	}
+
+	public int getPositionY() {
+		return positionY;
+	}
+
+	public void setPositionY(int positionY) {
+		this.positionY = positionY;
+	}
+	
+	public int getRaza_influenta() {
+		return raza_influenta;
+	}
+
+	public void setRaza_influenta(int raza_influenta) {
+		this.raza_influenta = raza_influenta;
+	}
+	
+	
+
+}

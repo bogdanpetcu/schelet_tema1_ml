@@ -1,0 +1,9 @@
+package tema_1_ml;
+
+public class Animal {
+	
+	private int raza_perceptie;
+	private int raza_coliziune;
+	private int viteza;
+
+}

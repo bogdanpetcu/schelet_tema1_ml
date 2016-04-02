@@ -1,0 +1,7 @@
+package tema_1_ml;
+
+public class Capcana {
+	
+	private int raza_influenta;
+
+}

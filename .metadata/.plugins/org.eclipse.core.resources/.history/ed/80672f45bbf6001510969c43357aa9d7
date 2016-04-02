@@ -1,0 +1,7 @@
+package tema_1_ml;
+
+public class Constants {
+
+	public static int PRADA = 0;
+	
+}
