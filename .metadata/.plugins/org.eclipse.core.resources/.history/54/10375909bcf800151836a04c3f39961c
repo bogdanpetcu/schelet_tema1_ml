@@ -74,13 +74,12 @@ public class Game {
 		
 		board[prada.getRow()][prada.getColumn()]=Constants.EMPTY_CELL_TYPE;
 		
-		//Prada ataca un pradator
 		up 		= prada.getRow()    - prada.getRaza_coliziune();
 		down 	= prada.getRow()    + prada.getRaza_coliziune();
 		right 	= prada.getColumn() + prada.getRaza_coliziune();
 		left 	= prada.getColumn() - prada.getRaza_coliziune();
 		
-		ArrayList<Integer> victims = new ArrayList<Integer>();
+		//Prada ataca un pradator
 		for (int i=0; i < predator_count; i++) {
 			if(!predators[i].isAlive())
 				continue;
@@ -88,20 +87,21 @@ public class Game {
 			pRow = predators[i].getRow();
 			pColumn = predators[i].getColumn();
 			
-			if(pColumn >= left && pColumn <= right && pRow >= up && pRow <= down) {
-				victims.add(i);
+			if(pColumn >= left && pColumn <= right && pRow >= up && pRow <= down) { 
+				predators[i].setAlive(false);
 			}
+			
+			
 		}
 		
-		if(victims.size() == 1) {
-			predators[victims.get(0)].setAlive(false);
-			System.out.println("Prada a atacat pradatorul " + victims.get(0));
-		} else if (victims.size() > 1) {
-			System.out.println("Prada a intrat in raza de actiune a cel putin 2 pradatori. Prada moare.");
-			prada.setAlive(false);
-			prada.setRow(row);
-			prada.setColumn(column);
-			return;
+		if(board[row][column] == Constants.PRADATOR_TYPE) {
+			
+			for (int i=0; i < predator_count; i++) {
+				if(predators[i].getRow() == row && predators[i].getColumn() == column) {
+					predators[i].setAlive(false);
+					break;
+				}
+			}	
 		}
 		
 		board[row][column] = Constants.PRADA_TYPE;
@@ -294,10 +294,6 @@ public class Game {
 	public static int game_state() {
 		int result = Constants.PREDATORS_LOSE;
 		int row, column, left, right, up, down, possibleAttackers = 0;
-		
-		if(!prada.isAlive()) {
-			return Constants.PREDATORS_WIN;
-		}
 		
 		for (int i=0; i < predator_count; i++) {
 			if(predators[i].isAlive()) {

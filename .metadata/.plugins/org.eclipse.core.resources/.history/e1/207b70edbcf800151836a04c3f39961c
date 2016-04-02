@@ -96,7 +96,7 @@ public class Game {
 		if(victims.size() == 1) {
 			predators[victims.get(0)].setAlive(false);
 			System.out.println("Prada a atacat pradatorul " + victims.get(0));
-		} else if (victims.size() > 1) {
+		} else {
 			System.out.println("Prada a intrat in raza de actiune a cel putin 2 pradatori. Prada moare.");
 			prada.setAlive(false);
 			prada.setRow(row);

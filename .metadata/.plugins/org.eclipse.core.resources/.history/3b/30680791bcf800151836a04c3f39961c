@@ -74,6 +74,9 @@ public class Game {
 		
 		board[prada.getRow()][prada.getColumn()]=Constants.EMPTY_CELL_TYPE;
 		
+		
+		
+		
 		//Prada ataca un pradator
 		up 		= prada.getRow()    - prada.getRaza_coliziune();
 		down 	= prada.getRow()    + prada.getRaza_coliziune();
@@ -95,9 +98,7 @@ public class Game {
 		
 		if(victims.size() == 1) {
 			predators[victims.get(0)].setAlive(false);
-			System.out.println("Prada a atacat pradatorul " + victims.get(0));
-		} else if (victims.size() > 1) {
-			System.out.println("Prada a intrat in raza de actiune a cel putin 2 pradatori. Prada moare.");
+		} else {
 			prada.setAlive(false);
 			prada.setRow(row);
 			prada.setColumn(column);
